@@ -1,10 +1,13 @@
 package fr.esgi.ddd.model;
 
 public class CoursPresentiel extends Cours {
-    private Salle salle;
+    private Reservation reservation;
 
-    public CoursPresentiel(Salle salle) {
+    public CoursPresentiel(Reservation reservation) {
+        this.reservation = reservation;
+    }
 
-        this.salle = salle;
+    public Reservation getReservation() {
+        return reservation;
     }
 }
