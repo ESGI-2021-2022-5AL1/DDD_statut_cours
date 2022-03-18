@@ -15,7 +15,7 @@ public class AnnulerCours {
         this.fausseReservation = fausseReservation;
     }
 
-    public void annulerCours(Cours cours) {
+    public String annulerCours(Cours cours) {
         if ( this.cours instanceof CoursPresentiel ) {
             try {
                 this.libererSalle(fausseReservation.getReservations(), cours.getReservation().getReservationId());
@@ -24,7 +24,7 @@ public class AnnulerCours {
             }
         }
         NotificationCourriel notificationCourriel = new NotificationCourriel(cours);
-        System.out.println(notificationCourriel.notifier());
+        return notificationCourriel.notifier();
     }
 
     public void libererSalle(ArrayList<Reservation> reservations, int reservationId) throws SalleInexistanteException {

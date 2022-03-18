@@ -73,4 +73,44 @@ public class TestAnnulerCours {
         NotificationCourriel notificationCourriel = new NotificationCourriel(cours);
         assertEquals(notificationCourriel.notifier(), "Les notifications sont envoyées");
     }
+
+    @Test
+    public void testAnnulerCoursPresentiel() {
+        Professeur professeur = new Professeur();
+        Eleve eleve1 = new Eleve();
+        Eleve eleve2 = new Eleve();
+        List<Eleve> eleves = new ArrayList<Eleve>();
+        eleves.add(eleve1);
+        eleves.add(eleve2);
+        ReservationRepository fausseReservation = new FausseReservation();
+        AnnulerCours annulerCours = new AnnulerCours(fausseReservation);
+        ArrayList<Reservation> reservations = fausseReservation.getReservations();
+        Reservation reservation = new Reservation(
+                1,
+                1,
+                LocalDateTime.of(
+                        2022,
+                        Month.MARCH,
+                        28,
+                        9,
+                        0
+                )
+        );
+        CoursPresentiel cours = new CoursPresentiel(professeur, eleves, reservation);
+        assertEquals(annulerCours.annulerCours(cours), "Les notifications sont envoyées");
+    }
+
+    @Test
+    public void testAnnulerCoursDistanciel() {
+        Professeur professeur = new Professeur();
+        Eleve eleve1 = new Eleve();
+        Eleve eleve2 = new Eleve();
+        List<Eleve> eleves = new ArrayList<Eleve>();
+        eleves.add(eleve1);
+        eleves.add(eleve2);
+        CoursDistanciel cours = new CoursDistanciel(professeur, eleves);
+        ReservationRepository fausseReservation = new FausseReservation();
+        AnnulerCours annulerCours = new AnnulerCours(fausseReservation);
+        assertEquals(annulerCours.annulerCours(cours), "Les notifications sont envoyées");
+    }
 }
