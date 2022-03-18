@@ -3,18 +3,12 @@ package fr.esgi.ddd.use_case.cours;
 import fr.esgi.ddd.infrastructure.SalleInexistanteException;
 import fr.esgi.ddd.model.*;
 
-import java.util.List;
-
 public class AnnulerCours {
 
     private final Cours cours;
-    private final List<Eleve> eleves;
-    private final Professeur professeur;
 
-    public AnnulerCours(Cours cours, List<Eleve> eleves, Professeur professeur) {
+    public AnnulerCours(Cours cours) {
         this.cours = cours;
-        this.eleves = eleves;
-        this.professeur = professeur;
     }
 
     public void annulerCours() {
@@ -25,7 +19,8 @@ public class AnnulerCours {
                 System.out.println(exception.getMessage());
             }
         }
-        // TODO : Notifier Eleves
+        // TODO :
+        // Notifier Eleves
         // Notifier Professeur
         // TODO : END
     }
