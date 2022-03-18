@@ -1,9 +1,9 @@
 package fr.esgi.ddd.use_case.cours;
 
 import fr.esgi.ddd.infrastructure.FausseReservation;
+import fr.esgi.ddd.infrastructure.NotificationCourriel;
 import fr.esgi.ddd.infrastructure.SalleInexistanteException;
-import fr.esgi.ddd.model.Reservation;
-import fr.esgi.ddd.model.ReservationRepository;
+import fr.esgi.ddd.model.*;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -11,6 +11,7 @@ import static org.junit.Assert.*;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TestAnnulerCours {
 
@@ -58,5 +59,18 @@ public class TestAnnulerCours {
         Assertions.assertThatExceptionOfType(SalleInexistanteException.class).isThrownBy(() ->
                 annulerCours.libererSalle(reservations, reservation.getReservationId())
         );
+    }
+
+    @Test
+    public void testNotification() {
+        Professeur professeur = new Professeur();
+        Eleve eleve1 = new Eleve();
+        Eleve eleve2 = new Eleve();
+        List<Eleve> eleves = new ArrayList<Eleve>();
+        eleves.add(eleve1);
+        eleves.add(eleve2);
+        Cours cours = new Cours(professeur, eleves);
+        NotificationCourriel notificationCourriel = new NotificationCourriel(cours);
+        assertEquals(notificationCourriel.notifier(), "Les notifications sont envoyées");
     }
 }

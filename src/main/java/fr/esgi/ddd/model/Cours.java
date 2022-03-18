@@ -3,10 +3,19 @@ package fr.esgi.ddd.model;
 import java.time.LocalDate;
 import java.util.List;
 
-public abstract class Cours {
+public class Cours {
     private int id;
     private String designation;
-    private Professeur professeur;
+    public Professeur professeur;
     private LocalDate date;
-    private List<Eleve> eleves;
+    public List<Eleve> eleves;
+
+    public Cours(Professeur professeur, List<Eleve> eleves) {
+        this.professeur = professeur;
+        this.eleves = eleves;
+    }
+
+    public Reservation getReservation(){
+        return null;
+    }
 }

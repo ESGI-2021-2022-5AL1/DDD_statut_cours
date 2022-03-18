@@ -1,5 +1,6 @@
 package fr.esgi.ddd.use_case.cours;
 
+import fr.esgi.ddd.infrastructure.NotificationCourriel;
 import fr.esgi.ddd.infrastructure.SalleInexistanteException;
 import fr.esgi.ddd.model.*;
 
@@ -14,7 +15,7 @@ public class AnnulerCours {
         this.fausseReservation = fausseReservation;
     }
 
-    public void annulerCours(CoursPresentiel cours) {
+    public void annulerCours(Cours cours) {
         if ( this.cours instanceof CoursPresentiel ) {
             try {
                 this.libererSalle(fausseReservation.getReservations(), cours.getReservation().getReservationId());
@@ -22,11 +23,8 @@ public class AnnulerCours {
                 System.out.println(exception.getMessage());
             }
         }
-
-        // TODO :
-        // Notifier Eleves
-        // Notifier Professeur
-        // TODO : END
+        NotificationCourriel notificationCourriel = new NotificationCourriel(cours);
+        System.out.println(notificationCourriel.notifier());
     }
 
     public void libererSalle(ArrayList<Reservation> reservations, int reservationId) throws SalleInexistanteException {
